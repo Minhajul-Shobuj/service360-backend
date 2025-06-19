@@ -1,0 +1,30 @@
+import { RequestHandler } from 'express';
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
+import status from 'http-status';
+import { UserService } from './user.service';
+
+const createUser: RequestHandler = catchAsync(async (req, res) => {
+  const result = await UserService.createUserIntoDb(req);
+  sendResponse(res, {
+    statusCode: status.CREATED,
+    success: true,
+    message: 'User created Successfully',
+    data: result,
+  });
+});
+
+const createAdmin: RequestHandler = catchAsync(async (req, res) => {
+  const result = await UserService.createAdminIntoDb(req);
+  sendResponse(res, {
+    success: true,
+    statusCode: status.CREATED,
+    message: 'Admin Created Successfully',
+    data: result,
+  });
+});
+
+export const UserController = {
+  createUser,
+  createAdmin,
+};
