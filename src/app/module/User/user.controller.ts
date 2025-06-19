@@ -23,8 +23,18 @@ const createAdmin: RequestHandler = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const createServicePorvider: RequestHandler = catchAsync(async (req, res) => {
+  const result = await UserService.createServicePorvider(req);
+  sendResponse(res, {
+    success: true,
+    statusCode: status.CREATED,
+    message: 'Service Provider Created Successfully',
+    data: result,
+  });
+});
 
 export const UserController = {
   createUser,
   createAdmin,
+  createServicePorvider,
 };

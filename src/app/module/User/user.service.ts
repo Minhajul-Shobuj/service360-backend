@@ -57,8 +57,43 @@ const createAdminIntoDb = async (req: Request) => {
   });
   return result;
 };
+const createServicePorvider = async (req: Request) => {
+  const data = req.body;
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+  const { address, ...providerData } = data;
+  const userData = {
+    email: data.email,
+    password: hashedPassword,
+    fullName: data.fullName,
+    phone: data.phone,
+    role: data.role,
+  };
+  const keyToRemove = ['password', 'role', 'phone'];
+  keyToRemove.forEach((key) => delete providerData[key]);
+  const result = await prisma.$transaction(async (trns) => {
+    const createUser = await trns.user.create({
+      data: userData,
+    });
+    const setAddress = await trns.address.create({
+      data: {
+        ...address,
+        user_id: createUser.user_id,
+      },
+    });
+    const createProvider = await trns.service_Provider.create({
+      data: providerData,
+    });
+    return {
+      createUser,
+      setAddress,
+      createProvider,
+    };
+  });
+  return result;
+};
 
 export const UserService = {
   createUserIntoDb,
   createAdminIntoDb,
+  createServicePorvider,
 };
