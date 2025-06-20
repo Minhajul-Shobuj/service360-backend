@@ -4,6 +4,7 @@ import { AuthRoute } from './app/module/Auth/auth.route';
 import { UserRoute } from './app/module/User/user.route';
 import notFound from './app/middlewares/notFound';
 import { ServiceRoute } from './app/module/Service/service.route';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
 
 const app: Application = express();
 app.use(cors());
@@ -19,4 +20,5 @@ app.get('/', (req, res) => {
   res.send('Hello from Service360');
 });
 app.use(notFound);
+app.use(globalErrorHandler);
 export default app;

@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from 'express';
 import { Prisma } from '../../../generated/prisma';
+import status from 'http-status';
 
 const globalErrorHandler = (
   err: any,
@@ -9,28 +10,25 @@ const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  // Prisma-specific error handling
-  if (err instanceof Prisma.PrismaClientKnownRequestError) {
-    // e.g., Unique constraint failed
-    if (err.code === 'P2002') {
-      return res.status(409).json({
-        error: 'Unique constraint failed on the field: ' + err.meta?.target,
-      });
-    }
-
-    // Add more Prisma error code cases as needed
-  }
+  const statusCode = status.INTERNAL_SERVER_ERROR;
+  const success = false;
+  let message = err.message || 'Something went wrong!';
+  let error = err;
 
   if (err instanceof Prisma.PrismaClientValidationError) {
-    return res.status(400).json({
-      error: 'Validation error: ' + err.message,
-    });
+    message = 'Validation Error';
+    error = err.message;
+  } else if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    if (err.code === 'P2002') {
+      message = 'Duplicate Key error';
+      error = err.meta;
+    }
   }
 
-  // Default case
-  res.status(500).json({
-    error: 'Internal server error',
-    message: err.message,
+  res.status(statusCode).json({
+    success,
+    message,
+    error,
   });
 };
 

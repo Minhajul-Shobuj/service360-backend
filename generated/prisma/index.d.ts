@@ -11919,9 +11919,9 @@ export namespace Prisma {
     base_price: number
     price_unit: string
     estimed_duration: string
-    is_featured: boolean
-    avg_rating: number
-    is_active: boolean
+    is_featured?: boolean
+    avg_rating?: number
+    is_active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     providerServices?: ProviderServicesCreateNestedManyWithoutServiceInput
@@ -11935,9 +11935,9 @@ export namespace Prisma {
     base_price: number
     price_unit: string
     estimed_duration: string
-    is_featured: boolean
-    avg_rating: number
-    is_active: boolean
+    is_featured?: boolean
+    avg_rating?: number
+    is_active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     providerServices?: ProviderServicesUncheckedCreateNestedManyWithoutServiceInput
@@ -11983,9 +11983,9 @@ export namespace Prisma {
     base_price: number
     price_unit: string
     estimed_duration: string
-    is_featured: boolean
-    avg_rating: number
-    is_active: boolean
+    is_featured?: boolean
+    avg_rating?: number
+    is_active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13893,9 +13893,9 @@ export namespace Prisma {
     base_price: number
     price_unit: string
     estimed_duration: string
-    is_featured: boolean
-    avg_rating: number
-    is_active: boolean
+    is_featured?: boolean
+    avg_rating?: number
+    is_active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     category?: Service_CategoryCreateNestedManyWithoutServiceInput
@@ -13908,9 +13908,9 @@ export namespace Prisma {
     base_price: number
     price_unit: string
     estimed_duration: string
-    is_featured: boolean
-    avg_rating: number
-    is_active: boolean
+    is_featured?: boolean
+    avg_rating?: number
+    is_active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     category?: Service_CategoryUncheckedCreateNestedManyWithoutServiceInput
@@ -14037,9 +14037,9 @@ export namespace Prisma {
     base_price: number
     price_unit: string
     estimed_duration: string
-    is_featured: boolean
-    avg_rating: number
-    is_active: boolean
+    is_featured?: boolean
+    avg_rating?: number
+    is_active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     providerServices?: ProviderServicesCreateNestedManyWithoutServiceInput
@@ -14052,9 +14052,9 @@ export namespace Prisma {
     base_price: number
     price_unit: string
     estimed_duration: string
-    is_featured: boolean
-    avg_rating: number
-    is_active: boolean
+    is_featured?: boolean
+    avg_rating?: number
+    is_active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     providerServices?: ProviderServicesUncheckedCreateNestedManyWithoutServiceInput

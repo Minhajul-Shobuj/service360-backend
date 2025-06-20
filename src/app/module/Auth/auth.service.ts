@@ -45,6 +45,7 @@ const refreshToken = async (token: string) => {
       token,
       process.env.JWT_REFRESH_SECRET as Secret
     ) as JwtPayload;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     throw new Error('You are not authorized');
   }
