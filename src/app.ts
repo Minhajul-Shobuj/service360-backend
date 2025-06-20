@@ -3,6 +3,7 @@ import cors from 'cors';
 import { AuthRoute } from './app/module/Auth/auth.route';
 import { UserRoute } from './app/module/User/user.route';
 import notFound from './app/middlewares/notFound';
+import { ServiceRoute } from './app/module/Service/service.route';
 
 const app: Application = express();
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', AuthRoute);
 app.use('/api/user', UserRoute);
+app.use('/api/service', ServiceRoute);
 
 app.get('/', (req, res) => {
   res.send('Hello from Service360');
