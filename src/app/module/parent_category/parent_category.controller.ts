@@ -5,7 +5,6 @@ import { PCategoryService } from './parent_category.service';
 
 const createParentCategory = catchAsync(async (req, res) => {
   const result = await PCategoryService.createParentCategory(req);
-
   sendResponse(res, {
     success: true,
     message: 'Successfully created a parent Category',

@@ -6,6 +6,7 @@ import notFound from './app/middlewares/notFound';
 import { ServiceRoute } from './app/module/Service/service.route';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import { PCategoryRoute } from './app/module/parent_category/parent_category.route';
+import { ServiceCategoryRoute } from './app/module/service_category/serviceCategory.route';
 
 const app: Application = express();
 app.use(cors());
@@ -17,6 +18,7 @@ app.use('/api/auth', AuthRoute);
 app.use('/api/user', UserRoute);
 app.use('/api/service', ServiceRoute);
 app.use('/api/pcategory', PCategoryRoute);
+app.use('/api/scategory', ServiceCategoryRoute);
 
 app.get('/', (req, res) => {
   res.send('Hello from Service360');
