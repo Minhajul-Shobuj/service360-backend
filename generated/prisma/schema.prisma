@@ -43,18 +43,21 @@ model User {
 
 model Admin {
   id         String   @id @default(ulid())
+  email      String   @unique
+  fullName   String
   is_deleted Boolean  @default(false)
   createdAt  DateTime @default(now())
   updated    DateTime @updatedAt
 
-  user_id String @unique
-  user    User   @relation(fields: [user_id], references: [user_id])
+  user User @relation(fields: [email], references: [email])
 
   @@map("admins")
 }
 
 model Service_Provider {
   id               String          @id @default(ulid())
+  email            String          @unique
+  fullName         String
   business_name    String
   business_license Int
   nid_number       Int
@@ -69,8 +72,7 @@ model Service_Provider {
   submitted_at     DateTime        @default(now())
 
   //relation
-  userId           String             @unique
-  user             User               @relation(fields: [userId], references: [user_id])
+  user             User               @relation(fields: [email], references: [email])
   providerServices ProviderServices[]
 
   @@map("service_provider")
@@ -83,9 +85,9 @@ model Service {
   base_price       Float
   price_unit       String
   estimed_duration String
-  is_featured      Boolean
-  avg_rating       Float
-  is_active        Boolean
+  is_featured      Boolean  @default(false)
+  avg_rating       Float    @default(0)
+  is_active        Boolean  @default(false)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
@@ -116,8 +118,8 @@ model Service_Category {
   parent_categoryId String
   parent_category   Parent_category @relation(fields: [parent_categoryId], references: [id])
 
-  service_id String
-  service    Service @relation(fields: [service_id], references: [id])
+  service_id String?
+  service    Service? @relation(fields: [service_id], references: [id])
 
   @@map("service_category")
 }

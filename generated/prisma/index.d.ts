@@ -8692,7 +8692,7 @@ export namespace Prisma {
     description: string
     is_Active: boolean
     parent_categoryId: string
-    service_id: string
+    service_id: string | null
     _count: Service_CategoryCountAggregateOutputType | null
     _min: Service_CategoryMinAggregateOutputType | null
     _max: Service_CategoryMaxAggregateOutputType | null
@@ -8721,7 +8721,7 @@ export namespace Prisma {
     parent_categoryId?: boolean
     service_id?: boolean
     parent_category?: boolean | Parent_categoryDefaultArgs<ExtArgs>
-    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    service?: boolean | Service_Category$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["service_Category"]>
 
   export type Service_CategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8733,7 +8733,7 @@ export namespace Prisma {
     parent_categoryId?: boolean
     service_id?: boolean
     parent_category?: boolean | Parent_categoryDefaultArgs<ExtArgs>
-    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    service?: boolean | Service_Category$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["service_Category"]>
 
   export type Service_CategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8745,7 +8745,7 @@ export namespace Prisma {
     parent_categoryId?: boolean
     service_id?: boolean
     parent_category?: boolean | Parent_categoryDefaultArgs<ExtArgs>
-    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    service?: boolean | Service_Category$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["service_Category"]>
 
   export type Service_CategorySelectScalar = {
@@ -8761,22 +8761,22 @@ export namespace Prisma {
   export type Service_CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "icon" | "description" | "is_Active" | "parent_categoryId" | "service_id", ExtArgs["result"]["service_Category"]>
   export type Service_CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     parent_category?: boolean | Parent_categoryDefaultArgs<ExtArgs>
-    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    service?: boolean | Service_Category$serviceArgs<ExtArgs>
   }
   export type Service_CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     parent_category?: boolean | Parent_categoryDefaultArgs<ExtArgs>
-    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    service?: boolean | Service_Category$serviceArgs<ExtArgs>
   }
   export type Service_CategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     parent_category?: boolean | Parent_categoryDefaultArgs<ExtArgs>
-    service?: boolean | ServiceDefaultArgs<ExtArgs>
+    service?: boolean | Service_Category$serviceArgs<ExtArgs>
   }
 
   export type $Service_CategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Service_Category"
     objects: {
       parent_category: Prisma.$Parent_categoryPayload<ExtArgs>
-      service: Prisma.$ServicePayload<ExtArgs>
+      service: Prisma.$ServicePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8785,7 +8785,7 @@ export namespace Prisma {
       description: string
       is_Active: boolean
       parent_categoryId: string
-      service_id: string
+      service_id: string | null
     }, ExtArgs["result"]["service_Category"]>
     composites: {}
   }
@@ -9181,7 +9181,7 @@ export namespace Prisma {
   export interface Prisma__Service_CategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     parent_category<T extends Parent_categoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, Parent_categoryDefaultArgs<ExtArgs>>): Prisma__Parent_categoryClient<$Result.GetResult<Prisma.$Parent_categoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    service<T extends ServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceDefaultArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    service<T extends Service_Category$serviceArgs<ExtArgs> = {}>(args?: Subset<T, Service_Category$serviceArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9611,6 +9611,25 @@ export namespace Prisma {
      * Limit how many Service_Categories to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Service_Category.service
+   */
+  export type Service_Category$serviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
   }
 
   /**
@@ -10844,6 +10863,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   /**
    * Field references
    */
@@ -11429,9 +11456,9 @@ export namespace Prisma {
     description?: StringFilter<"Service_Category"> | string
     is_Active?: BoolFilter<"Service_Category"> | boolean
     parent_categoryId?: StringFilter<"Service_Category"> | string
-    service_id?: StringFilter<"Service_Category"> | string
+    service_id?: StringNullableFilter<"Service_Category"> | string | null
     parent_category?: XOR<Parent_categoryScalarRelationFilter, Parent_categoryWhereInput>
-    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
   }
 
   export type Service_CategoryOrderByWithRelationInput = {
@@ -11441,7 +11468,7 @@ export namespace Prisma {
     description?: SortOrder
     is_Active?: SortOrder
     parent_categoryId?: SortOrder
-    service_id?: SortOrder
+    service_id?: SortOrderInput | SortOrder
     parent_category?: Parent_categoryOrderByWithRelationInput
     service?: ServiceOrderByWithRelationInput
   }
@@ -11456,9 +11483,9 @@ export namespace Prisma {
     description?: StringFilter<"Service_Category"> | string
     is_Active?: BoolFilter<"Service_Category"> | boolean
     parent_categoryId?: StringFilter<"Service_Category"> | string
-    service_id?: StringFilter<"Service_Category"> | string
+    service_id?: StringNullableFilter<"Service_Category"> | string | null
     parent_category?: XOR<Parent_categoryScalarRelationFilter, Parent_categoryWhereInput>
-    service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
   }, "id">
 
   export type Service_CategoryOrderByWithAggregationInput = {
@@ -11468,7 +11495,7 @@ export namespace Prisma {
     description?: SortOrder
     is_Active?: SortOrder
     parent_categoryId?: SortOrder
-    service_id?: SortOrder
+    service_id?: SortOrderInput | SortOrder
     _count?: Service_CategoryCountOrderByAggregateInput
     _max?: Service_CategoryMaxOrderByAggregateInput
     _min?: Service_CategoryMinOrderByAggregateInput
@@ -11484,7 +11511,7 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Service_Category"> | string
     is_Active?: BoolWithAggregatesFilter<"Service_Category"> | boolean
     parent_categoryId?: StringWithAggregatesFilter<"Service_Category"> | string
-    service_id?: StringWithAggregatesFilter<"Service_Category"> | string
+    service_id?: StringNullableWithAggregatesFilter<"Service_Category"> | string | null
   }
 
   export type Parent_categoryWhereInput = {
@@ -12059,7 +12086,7 @@ export namespace Prisma {
     description: string
     is_Active: boolean
     parent_category: Parent_categoryCreateNestedOneWithoutCategoryInput
-    service: ServiceCreateNestedOneWithoutCategoryInput
+    service?: ServiceCreateNestedOneWithoutCategoryInput
   }
 
   export type Service_CategoryUncheckedCreateInput = {
@@ -12069,7 +12096,7 @@ export namespace Prisma {
     description: string
     is_Active: boolean
     parent_categoryId: string
-    service_id: string
+    service_id?: string | null
   }
 
   export type Service_CategoryUpdateInput = {
@@ -12079,7 +12106,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     parent_category?: Parent_categoryUpdateOneRequiredWithoutCategoryNestedInput
-    service?: ServiceUpdateOneRequiredWithoutCategoryNestedInput
+    service?: ServiceUpdateOneWithoutCategoryNestedInput
   }
 
   export type Service_CategoryUncheckedUpdateInput = {
@@ -12089,7 +12116,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     parent_categoryId?: StringFieldUpdateOperationsInput | string
-    service_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type Service_CategoryCreateManyInput = {
@@ -12099,7 +12126,7 @@ export namespace Prisma {
     description: string
     is_Active: boolean
     parent_categoryId: string
-    service_id: string
+    service_id?: string | null
   }
 
   export type Service_CategoryUpdateManyMutationInput = {
@@ -12117,7 +12144,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     parent_categoryId?: StringFieldUpdateOperationsInput | string
-    service_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type Parent_categoryCreateInput = {
@@ -12657,9 +12684,34 @@ export namespace Prisma {
     serviceId?: SortOrder
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type Parent_categoryScalarRelationFilter = {
     is?: Parent_categoryWhereInput
     isNot?: Parent_categoryWhereInput
+  }
+
+  export type ServiceNullableScalarRelationFilter = {
+    is?: ServiceWhereInput | null
+    isNot?: ServiceWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type Service_CategoryCountOrderByAggregateInput = {
@@ -12690,6 +12742,24 @@ export namespace Prisma {
     is_Active?: SortOrder
     parent_categoryId?: SortOrder
     service_id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type Parent_categoryCountOrderByAggregateInput = {
@@ -13068,12 +13138,18 @@ export namespace Prisma {
     update?: XOR<XOR<Parent_categoryUpdateToOneWithWhereWithoutCategoryInput, Parent_categoryUpdateWithoutCategoryInput>, Parent_categoryUncheckedUpdateWithoutCategoryInput>
   }
 
-  export type ServiceUpdateOneRequiredWithoutCategoryNestedInput = {
+  export type ServiceUpdateOneWithoutCategoryNestedInput = {
     create?: XOR<ServiceCreateWithoutCategoryInput, ServiceUncheckedCreateWithoutCategoryInput>
     connectOrCreate?: ServiceCreateOrConnectWithoutCategoryInput
     upsert?: ServiceUpsertWithoutCategoryInput
+    disconnect?: ServiceWhereInput | boolean
+    delete?: ServiceWhereInput | boolean
     connect?: ServiceWhereUniqueInput
     update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutCategoryInput, ServiceUpdateWithoutCategoryInput>, ServiceUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type Service_CategoryCreateNestedManyWithoutParent_categoryInput = {
@@ -13290,6 +13366,48 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProvider_StatusFilter<$PrismaModel>
     _max?: NestedEnumProvider_StatusFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type UserCreateWithoutAddressInput = {
@@ -13842,7 +13960,7 @@ export namespace Prisma {
     description?: StringFilter<"Service_Category"> | string
     is_Active?: BoolFilter<"Service_Category"> | boolean
     parent_categoryId?: StringFilter<"Service_Category"> | string
-    service_id?: StringFilter<"Service_Category"> | string
+    service_id?: StringNullableFilter<"Service_Category"> | string | null
   }
 
   export type Service_ProviderCreateWithoutProviderServicesInput = {
@@ -14139,7 +14257,7 @@ export namespace Prisma {
     icon: string
     description: string
     is_Active: boolean
-    service: ServiceCreateNestedOneWithoutCategoryInput
+    service?: ServiceCreateNestedOneWithoutCategoryInput
   }
 
   export type Service_CategoryUncheckedCreateWithoutParent_categoryInput = {
@@ -14148,7 +14266,7 @@ export namespace Prisma {
     icon: string
     description: string
     is_Active: boolean
-    service_id: string
+    service_id?: string | null
   }
 
   export type Service_CategoryCreateOrConnectWithoutParent_categoryInput = {
@@ -14251,7 +14369,7 @@ export namespace Prisma {
     icon: string
     description: string
     is_Active: boolean
-    service_id: string
+    service_id?: string | null
   }
 
   export type Service_CategoryUpdateWithoutParent_categoryInput = {
@@ -14260,7 +14378,7 @@ export namespace Prisma {
     icon?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
-    service?: ServiceUpdateOneRequiredWithoutCategoryNestedInput
+    service?: ServiceUpdateOneWithoutCategoryNestedInput
   }
 
   export type Service_CategoryUncheckedUpdateWithoutParent_categoryInput = {
@@ -14269,7 +14387,7 @@ export namespace Prisma {
     icon?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
-    service_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type Service_CategoryUncheckedUpdateManyWithoutParent_categoryInput = {
@@ -14278,7 +14396,7 @@ export namespace Prisma {
     icon?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
-    service_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

@@ -119,8 +119,8 @@ model Service_Category{
   parent_categoryId String
   parent_category Parent_category @relation(fields: [parent_categoryId], references: [id])
 
-  service_id String
-  service Service @relation(fields: [service_id], references: [id])
+  service_id String?
+  service Service? @relation(fields: [service_id], references: [id])
  
  @@map("service_category")
 }

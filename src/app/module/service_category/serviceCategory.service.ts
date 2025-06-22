@@ -3,8 +3,16 @@ import { PrismaClient } from '../../../../generated/prisma';
 const prisma = new PrismaClient();
 
 const createServiceCategory = async (req: Request) => {
+  const data = req.body;
   const result = await prisma.service_Category.create({
-    data: req.body,
+    data: {
+      ...data,
+      parent_category: {
+        connect: {
+          id: data.parent_category,
+        },
+      },
+    },
   });
   return result;
 };
