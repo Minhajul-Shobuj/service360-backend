@@ -19,14 +19,14 @@ const userLogin = async (payload: User) => {
     throw new Error('check your password');
   }
   const accessToken = await jwt.sign(
-    { email: userData.email, role: userData.role },
+    { id: userData.user_id, email: userData.email, role: userData.role },
     process.env.JWT_ACCESS_SECRET as string,
     {
       expiresIn: '15m',
     }
   );
   const refreshToken = jwt.sign(
-    { email: userData.email, role: userData.role },
+    { id: userData.user_id, email: userData.email, role: userData.role },
     process.env.JWT_REFRESH_SECRET as string,
     {
       expiresIn: '30d',
@@ -56,7 +56,11 @@ const refreshToken = async (token: string) => {
     },
   });
   const accessToken = await jwt.sign(
-    { email: (await userData).email, role: (await userData).role },
+    {
+      id: (await userData).user_id,
+      email: (await userData).email,
+      role: (await userData).role,
+    },
     process.env.JWT_ACCESS_SECRET as Secret,
     {
       expiresIn: '15m',
