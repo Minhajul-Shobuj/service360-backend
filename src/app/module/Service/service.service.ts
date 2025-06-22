@@ -3,11 +3,11 @@ import { PrismaClient } from '../../../../generated/prisma';
 
 const prisma = new PrismaClient();
 const createServiceIntodb = async (req: Request) => {
-  const data = req.body;
+  const { category, ...serviceData } = req.body;
   //const user = req.user;
   const result = await prisma.$transaction(async (trns) => {
     const createService = await trns.service.create({
-      data: data,
+      data: serviceData,
     });
     const setProvider = await trns.providerServices.create({
       data: {
@@ -15,15 +15,13 @@ const createServiceIntodb = async (req: Request) => {
         serviceId: createService.id,
       },
     });
-    const setCategory = await data.category.map((catId: string) =>
-      trns.service_Category.update({
-        where: {
-          id: catId,
-        },
-        data: {
-          service_id: createService.id,
-        },
-      })
+    const setCategory = await Promise.all(
+      category.map((catId: string) =>
+        trns.service_Category.update({
+          where: { id: catId },
+          data: { service_id: createService.id },
+        })
+      )
     );
     return {
       setProvider,
