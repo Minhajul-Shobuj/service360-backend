@@ -15,9 +15,20 @@ const createServiceIntodb = async (req: Request) => {
         serviceId: createService.id,
       },
     });
+    const setCategory = await data.category.map((catId: string) =>
+      trns.service_Category.update({
+        where: {
+          id: catId,
+        },
+        data: {
+          service_id: createService.id,
+        },
+      })
+    );
     return {
       setProvider,
       createService,
+      setCategory,
     };
   });
   return result;
