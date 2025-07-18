@@ -30,6 +30,29 @@ const createServiceIntodb = async (req: Request) => {
   });
   return result;
 };
+
+const getAllServicesFromDb = async () => {
+  const result = await prisma.service.findMany({
+    include: {
+      providerServices: true,
+      category: true,
+    },
+  });
+  return result;
+};
+
+const getServiceByIdFromDb = async (serviceId: string) => {
+  const result = await prisma.service.findUnique({
+    where: { id: serviceId },
+    include: {
+      providerServices: true,
+      category: true,
+    },
+  });
+  return result;
+};
 export const ServiceOfService = {
   createServiceIntodb,
+  getAllServicesFromDb,
+  getServiceByIdFromDb,
 };

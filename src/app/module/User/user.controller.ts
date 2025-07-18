@@ -33,8 +33,19 @@ const createServicePorvider: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const getMe: RequestHandler = catchAsync(async (req, res) => {
+  const result = await UserService.getMe(req);
+  sendResponse(res, {
+    success: true,
+    statusCode: status.OK,
+    message: 'User fetched successfully',
+    data: result,
+  });
+});
+
 export const UserController = {
   createUser,
   createAdmin,
   createServicePorvider,
+  getMe,
 };

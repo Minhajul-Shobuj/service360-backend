@@ -23,5 +23,6 @@ router.post(
   validateRequest(UserValidation.createServiceProviderSchema),
   UserController.createServicePorvider
 );
+router.get('/getMe', auth(UserRole.SERVICE_PROVIDER), UserController.getMe);
 
 export const UserRoute = router;

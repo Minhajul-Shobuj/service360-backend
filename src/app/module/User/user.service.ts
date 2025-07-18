@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request } from 'express';
 import { PrismaClient } from '../../../../generated/prisma';
 import bcrypt from 'bcrypt';
@@ -92,8 +93,25 @@ const createServicePorvider = async (req: Request) => {
   return result;
 };
 
+const getMe = async (req: Request) => {
+  const user = (req as any).user;
+  const result = await prisma.user.findUnique({
+    where: { user_id: user.id },
+    include: {
+      address: true,
+      service_provider: true,
+      Admin: true,
+    },
+  });
+  if (!result) {
+    throw new Error('User not found');
+  }
+  return result;
+};
+
 export const UserService = {
   createUserIntoDb,
   createAdminIntoDb,
   createServicePorvider,
+  getMe,
 };

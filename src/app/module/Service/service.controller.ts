@@ -14,6 +14,29 @@ const createService: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const getAllServices: RequestHandler = catchAsync(async (req, res) => {
+  const result = await ServiceOfService.getAllServicesFromDb();
+  sendResponse(res, {
+    success: true,
+    statusCode: status.OK,
+    message: 'Services Retrieved Successfully',
+    data: result,
+  });
+});
+
+const getServiceById: RequestHandler = catchAsync(async (req, res) => {
+  const serviceId = req.params.id;
+  const result = await ServiceOfService.getServiceByIdFromDb(serviceId);
+  sendResponse(res, {
+    success: true,
+    statusCode: status.OK,
+    message: 'Service Retrieved Successfully',
+    data: result,
+  });
+});
+
 export const ServiceController = {
   createService,
+  getAllServices,
+  getServiceById,
 };
