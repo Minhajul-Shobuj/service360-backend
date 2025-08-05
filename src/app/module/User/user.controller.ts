@@ -43,9 +43,20 @@ const getMe: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const getServiceProviders: RequestHandler = catchAsync(async (req, res) => {
+  const result = await UserService.getServiceProviders();
+  sendResponse(res, {
+    success: true,
+    statusCode: status.OK,
+    message: 'ServiceProviders fetched successfully',
+    data: result,
+  });
+});
+
 export const UserController = {
   createUser,
   createAdmin,
   createServicePorvider,
   getMe,
+  getServiceProviders,
 };

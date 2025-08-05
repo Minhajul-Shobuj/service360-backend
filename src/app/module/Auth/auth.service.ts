@@ -1,6 +1,12 @@
 import bcrypt from 'bcrypt';
 import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
-import { PrismaClient, User, USER_STATUS } from '../../../../generated/prisma';
+import {
+  PrismaClient,
+  Provider_Status,
+  User,
+  USER_STATUS,
+  UserRole,
+} from '../../../../generated/prisma';
 
 const prisma = new PrismaClient();
 
@@ -11,6 +17,14 @@ const userLogin = async (payload: User) => {
       status: USER_STATUS.ACTIVE,
     },
   });
+  if (userData.role === UserRole.SERVICE_PROVIDER) {
+    await prisma.service_Provider.findUniqueOrThrow({
+      where: {
+        email: userData.email,
+        status: Provider_Status.ACTIVE,
+      },
+    });
+  }
   const checkingPassword = await bcrypt.compare(
     payload.password,
     userData.password

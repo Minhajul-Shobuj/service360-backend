@@ -109,9 +109,25 @@ const getMe = async (req: Request) => {
   return result;
 };
 
+const getServiceProviders = async () => {
+  const result = await prisma.service_Provider.findMany({
+    include: {
+      user: {
+        select: {
+          fullName: true,
+          email: true,
+          phone: true,
+        },
+      },
+    },
+  });
+  return result;
+};
+
 export const UserService = {
   createUserIntoDb,
   createAdminIntoDb,
   createServicePorvider,
   getMe,
+  getServiceProviders,
 };

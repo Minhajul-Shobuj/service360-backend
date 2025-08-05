@@ -23,6 +23,16 @@ router.post(
   validateRequest(UserValidation.createServiceProviderSchema),
   UserController.createServicePorvider
 );
-router.get('/getMe', auth(UserRole.SERVICE_PROVIDER), UserController.getMe);
+
+router.get(
+  '/service-providers',
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  UserController.getServiceProviders
+);
+router.get(
+  '/getMe',
+  auth(UserRole.SERVICE_PROVIDER, UserRole.USER),
+  UserController.getMe
+);
 
 export const UserRoute = router;
